@@ -84,6 +84,23 @@ def test_count():
     assert_equal(n.count(42), 0)
 
 
+
+def test_decode():
+    n = nitarray('2,0,0,2,0', 3)
+    assert_equal(n._bitarray, ba.bitarray('1000001000'))
+
+    d = {'L': nitarray('2,0', 3), 
+         'O': nitarray('0', 3),
+         }
+
+    decoded = n.decode(d)
+    assert_equal(decoded, ['L', 'O', 'L'])
+
+    d['L'] = nitarray('2,0', 42) 
+    assert_raises(AssertionError, n.decode, d)
+
+
+
 def test_encode():
     n = nitarray([], 3)
 
@@ -96,6 +113,9 @@ def test_encode():
 
     n.encode(d, 'LOL')
     assert_equal(n._bitarray, ba.bitarray('10000010001000001000'))
+
+    d['I'] = nitarray('0,2', 42)
+    assert_raises(AssertionError, n.encode, d, 'ILL')
 
 
 def test_extend():

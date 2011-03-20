@@ -85,7 +85,25 @@ class nitarray(object):
 
 
     def decode(self, code):
-        """FIXME"""
+        """Translates the nitarray into a list of keys of code.
+
+        Args:
+            * code: a dict of keys (any hashable object) to a nitarray.
+              These nitarrays must have the same base as the nitarray
+              to be extended.
+
+        Returns:
+            * decoded: a list of code keys, in the order they appear
+              in the nitarray.
+        """
+        # Ensure that nitarrays are of the correct base
+        for key in code:
+            assert (self._n == code[key]._n)
+
+        # Perform decoding 
+        bit_code = {key: value._bitarray for key, value in code.items()}
+        decoded = self._bitarray.decode(bit_code)
+        return decoded
 
 
     def encode(self, code, seq):
