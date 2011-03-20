@@ -8,41 +8,62 @@ from ..nitarray import char_encoding, nitarray
 def test_char_encoding2():
     n = 2 
     ce = char_encoding(n)
-    print ce
-    raise TypeError
 
-    expected = {0: ba.bitarray('0'),
-                1: ba.bitarray('1'),
-                }
+    for key in ce:
+        yield check_length, ce[key], 8
 
-    assert_equal(ne, expected)
-
-"""\
-def test_nit_encoding3():
-    n = 3 
-    ne = nit_encoding(n)
-
-    expected = {0: ba.bitarray('00'),
-                1: ba.bitarray('01'),
-                2: ba.bitarray('10'),
-                }
-
-    assert_equal(ne, expected)
+    assert_equal(len(ce), 256)
 
 
-def test_nit_encoding8():
+def test_char_encoding3():
+    n = 3
+    ce = char_encoding(n)
+
+    for key in ce:
+        yield check_length, ce[key], 6
+
+    assert_equal(len(ce), 256)
+
+
+def test_char_encoding8():
     n = 8
-    ne = nit_encoding(n)
+    ce = char_encoding(n)
 
-    expected = {0: ba.bitarray('000'),
-                1: ba.bitarray('001'),
-                2: ba.bitarray('010'),
-                3: ba.bitarray('011'),
-                4: ba.bitarray('100'),
-                5: ba.bitarray('101'),
-                6: ba.bitarray('110'),
-                7: ba.bitarray('111'),
-                }
+    for key in ce:
+        yield check_length, ce[key], 3
 
-    assert_equal(ne, expected)
-"""\
+    assert_equal(len(ce), 256)
+
+
+def test_char_encoding42():
+    n = 42
+    ce = char_encoding(n)
+
+    for key in ce:
+        yield check_length, ce[key], 2
+
+    assert_equal(len(ce), 256)
+
+
+def test_char_encoding256():
+    n = 256
+    ce = char_encoding(n)
+
+    for key in ce:
+        yield check_length, ce[key], 1
+
+    assert_equal(len(ce), 256)
+
+
+def test_char_encoding1337():
+    n = 1337
+    ce = char_encoding(n)
+
+    for key in ce:
+        yield check_length, ce[key], 1
+
+    assert_equal(len(ce), 256)
+
+
+def check_length(a, l):
+    assert_equal(len(a), l)

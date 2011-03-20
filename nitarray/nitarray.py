@@ -121,6 +121,13 @@ class nitarray(object):
         return s
 
 
+    def __len__(self):
+        l_this_array = self._bitarray.length()
+        l_zero_array = encodings_cache[self._n][0].length()
+
+        l = l_this_array / l_zero_array
+        return l
+
     #
     # General methods
     # 
