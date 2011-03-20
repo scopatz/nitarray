@@ -72,4 +72,13 @@ def test_append():
     n.append('2')
     assert_equal(id(n), nid)
     assert_equal(n._bitarray, ba.bitarray('0110000110'))
+
+    assert_raises(AssertionError, n.append, 42)
     
+
+def test_count():
+    n = nitarray([0, 2, 0], 3)
+    assert_equal(n.count(0), 2)
+    assert_equal(n.count(1), 0)
+    assert_equal(n.count(2), 1)
+    assert_equal(n.count(42), 0)

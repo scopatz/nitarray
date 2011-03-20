@@ -69,3 +69,16 @@ class nitarray(object):
         assert (x in self._allowed_nits)
         x_array = encodings_cache[self._n][x]
         self._bitarray = self._bitarray + x_array
+
+    
+    def count(self, x):
+        """Counts the number of times the nit x appears in the array."""
+        x = int(x)
+
+        if x not in self._allowed_nits:
+            c = 0
+        else:
+            d = self._bitarray.decode(encodings_cache[self._n])
+            c = d.count(x)
+
+        return c
