@@ -49,6 +49,25 @@ def nit_encoding(n):
     return ne
 
 
+def char_encoding(n):
+    """Generates a char encoding dictionary to nits of base n."""
+    # Find the number of nits that it will 
+    # take to represent all 256 characters
+    nit_len = math.log(256, n)
+    nit_len = math.ceil(nit_len)
+    nit_len = int(nit_len)
+
+    # Create char encoding map
+    ce = {}
+    for i in range(256):
+        ce_i = [0 for nl in range(nit_len)]
+        char_nit = nit(i, n)
+        ce_i[-len(char_nit):] = char_nit
+        ce[chr(i)] = nitarray(ce_i, n)
+
+    return ce
+
+
 class nitarray(object):
 
     def __init__(self, initial, n=2):
@@ -88,6 +107,18 @@ class nitarray(object):
         # Create underlying bit array
         self._bitarray = ba.bitarray()
         self._bitarray.encode(encodings_cache[n], initial)
+
+
+    def __repr__(self):
+        decoded = self._bitarray.decode(encodings_cache[self._n])
+        decoded = ",".join([str(i) for i in decoded])
+        r = "nitarray('{na}', {n})".format(na=decoded, n=self._n)
+        return r
+
+
+    def __str__(self):
+        s = self.__repr__()
+        return s
 
 
     #
