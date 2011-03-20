@@ -5,7 +5,7 @@ import bitarray as ba
 from ..nitarray import nit_encoding
 
 
-def test_nit_array2():
+def test_nit_encoding2():
     n = 2 
     ne = nit_encoding(n)
 
@@ -16,7 +16,7 @@ def test_nit_array2():
     assert_equal(ne, expected)
 
 
-def test_nit_array3():
+def test_nit_encoding3():
     n = 3 
     ne = nit_encoding(n)
 
@@ -28,7 +28,7 @@ def test_nit_array3():
     assert_equal(ne, expected)
 
 
-def test_nit_array8():
+def test_nit_encoding8():
     n = 8
     ne = nit_encoding(n)
 
