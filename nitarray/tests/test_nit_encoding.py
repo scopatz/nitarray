@@ -5,12 +5,41 @@ import bitarray as ba
 from ..nitarray import nit_encoding
 
 
-def test_nit_array1():
+def test_nit_array2():
     n = 2 
     ne = nit_encoding(n)
 
     expected = {0: ba.bitarray('0'),
                 1: ba.bitarray('1'),
+                }
+
+    assert_equal(ne, expected)
+
+
+def test_nit_array3():
+    n = 3 
+    ne = nit_encoding(n)
+
+    expected = {0: ba.bitarray('00'),
+                1: ba.bitarray('01'),
+                2: ba.bitarray('10'),
+                }
+
+    assert_equal(ne, expected)
+
+
+def test_nit_array8():
+    n = 8
+    ne = nit_encoding(n)
+
+    expected = {0: ba.bitarray('000'),
+                1: ba.bitarray('001'),
+                2: ba.bitarray('010'),
+                3: ba.bitarray('011'),
+                4: ba.bitarray('100'),
+                5: ba.bitarray('101'),
+                6: ba.bitarray('110'),
+                7: ba.bitarray('111'),
                 }
 
     assert_equal(ne, expected)
