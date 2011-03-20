@@ -84,6 +84,19 @@ def test_count():
     assert_equal(n.count(42), 0)
 
 
+def test_encode():
+    n = nitarray([], 3)
+
+    d = {'L': nitarray('2,0', 3), 
+         'O': nitarray('0', 3),
+         }
+
+    n.encode(d, 'LOL')
+    assert_equal(n._bitarray, ba.bitarray('1000001000'))
+
+    n.encode(d, 'LOL')
+    assert_equal(n._bitarray, ba.bitarray('10000010001000001000'))
+
 
 def test_extend():
     n = nitarray([], 3)

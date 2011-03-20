@@ -68,7 +68,7 @@ class nitarray(object):
         x = int(x)
         assert (x in self._allowed_nits)
         x_array = encodings_cache[self._n][x]
-        self._bitarray = self._bitarray + x_array
+        self._bitarray += x_array
 
     
     def count(self, x):
@@ -88,14 +88,32 @@ class nitarray(object):
         """FIXME"""
 
 
-    def encode(self, code, iterable):
-        """FIXME"""
+    def encode(self, code, seq):
+        """Extends the nitarray with [code[s] for all s in seq].
+
+        Args:
+            * code: a dict of keys (any hashable object) to a nitarray.
+              These nitarrays must have the same base as the nitarray
+              to be extended.
+            * seq: a sequence of keys present in code.
+        """
+        # Ensure that nitarrays are of the correct base
+        for key in code:
+            assert (self._n == code[key]._n)
+
+        # Create temp seq_encoding
+        seq_array = ba.bitarray()
+        for s in seq:
+            seq_array += code[s]._bitarray
+
+        # Extend the current bitarray
+        self._bitarray += seq_array
 
 
-    def extend(self, s):
-        """Appends a sequence s of nits to the nitarray."""
-        assert (set(s) <= self._allowed_nits)
+    def extend(self, seq):
+        """Appends a sequence of nits to the nitarray."""
+        assert (set(seq) <= self._allowed_nits)
 
-        s_array = ba.bitarray()
-        s_array.encode(encodings_cache[self._n], s)
-        self._bitarray = self._bitarray + s_array
+        seq_array = ba.bitarray()
+        seq_array.encode(encodings_cache[self._n], seq)
+        self._bitarray += seq_array
