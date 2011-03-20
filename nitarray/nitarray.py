@@ -238,3 +238,17 @@ class nitarray(object):
 
         # Encode this string as nits and extend the current bitarray
         self.encode(encodings_cache['char', self._n], s)       
+
+
+    def index(self, x):
+        """Returns the index of the first occurence of x.  
+        Raises an error if x does not occur in the nitarray."""
+        decoded = self._bitarray.decode(encodings_cache[self._n])
+
+        try:
+            idx = decoded.index(x)
+        except ValueError:
+            msg = "{0} does not occur in {1}.".format(x, self)
+            raise ValueError(msg)
+
+        return idx

@@ -154,3 +154,13 @@ def test_fromstring():
     n = nitarray([], 3)
     n.fromstring(s)
     assert_equal(n._bitarray, ba.bitarray('000010100101000010101001000010100101'))
+
+
+def test_index():
+    n = nitarray('2,0,0,2,0', 3)
+
+    assert_equal(n.index(2), 0)
+    assert_equal(n.index(0), 1)
+
+    assert_raises(ValueError, n.index, 1)
+    assert_raises(ValueError, n.index, 42)
