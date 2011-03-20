@@ -82,3 +82,20 @@ class nitarray(object):
             c = d.count(x)
 
         return c
+
+
+    def decode(self, code):
+        """FIXME"""
+
+
+    def encode(self, code, iterable):
+        """FIXME"""
+
+
+    def extend(self, s):
+        """Appends a sequence s of nits to the nitarray."""
+        assert (set(s) <= self._allowed_nits)
+
+        s_array = ba.bitarray()
+        s_array.encode(encodings_cache[self._n], s)
+        self._bitarray = self._bitarray + s_array

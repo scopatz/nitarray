@@ -82,3 +82,17 @@ def test_count():
     assert_equal(n.count(1), 0)
     assert_equal(n.count(2), 1)
     assert_equal(n.count(42), 0)
+
+
+
+def test_extend():
+    n = nitarray([], 3)
+    assert_equal(n._bitarray, ba.bitarray(''))
+
+    n.extend([1, 2])
+    assert_equal(n._bitarray, ba.bitarray('0110'))
+
+    n.extend([0])
+    assert_equal(n._bitarray, ba.bitarray('011000'))
+
+    assert_raises(AssertionError, n.extend, [42])
