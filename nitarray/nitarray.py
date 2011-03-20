@@ -7,6 +7,37 @@ encodings_cache = {}
 char_bin_encodings = {chr(i): ba.bitarray('{0:0>8}'.format(bin(i)[2:])) for i in range(256)}
 
 
+def nit(x, n):
+    """Converts an int x to a sequence of nits of base n."""
+    # Special case zero, do avoid log issues
+    if x == 0:
+        return [0]
+
+    # Init variables
+    l = []
+    e = 1
+
+    s = 0
+    S = int(math.ceil(math.log(x, n)))
+
+    # Loop through all powers of n 
+    while s < S:
+        d = (x // e) % n
+        l.append(d)
+
+        # Prep for next iter
+        e = e*n
+        s += 1
+
+    # Get to the next order of mag, if x is a power of n
+    if (x == e):
+        l.append(1)
+
+    # Put the nits in the proper order
+    l.reverse()
+    return l
+
+
 def nit_encoding(n):
     """Generates a bit encoding dictionary for nits of base n."""
     # Find the number of bits that it will 
@@ -16,29 +47,6 @@ def nit_encoding(n):
     # Generate encoding dictionaries
     ne = {i: ba.bitarray('{b:0>{l}}'.format(b=bin(i)[2:], l=nit_bin_len)) for i in range(n)}
     return ne
-
-
-def nit(x, n):
-    """Converts an int x to a sequence of nits of base n."""
-    l = []
-    e = 1
-
-    s = 0
-    S = int(math.ceil(math.log(x, n)))
-
-    while s < S:
-        d = (x // e) % n
-        l.append(d)
-
-        # Prep for next iter
-        e = e*n
-        s += 1
-
-    if (x == e):
-        l.append(1)
-
-    l.reverse()
-    return l
 
 
 class nitarray(object):
