@@ -1,1 +1,1 @@
-from .nitarray import nitarray, nit_encoding
+from .nitarray import nitarray, nit_encoding, nit

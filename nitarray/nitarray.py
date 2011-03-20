@@ -18,6 +18,29 @@ def nit_encoding(n):
     return ne
 
 
+def nit(x, n):
+    """Converts an int x to a sequence of nits of base n."""
+    l = []
+    e = 1
+
+    s = 0
+    S = int(math.ceil(math.log(x, n)))
+
+    while s < S:
+        d = (x // e) % n
+        l.append(d)
+
+        # Prep for next iter
+        e = e*n
+        s += 1
+
+    if (x == e):
+        l.append(1)
+
+    l.reverse()
+    return l
+
+
 class nitarray(object):
 
     def __init__(self, initial, n=2):
