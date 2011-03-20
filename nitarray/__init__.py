@@ -1,1 +1,1 @@
-from .nitarray import *
+from .nitarray import nitarray
