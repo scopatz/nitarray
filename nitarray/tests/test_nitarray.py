@@ -53,3 +53,23 @@ def test_nit_array_init3():
     # Confirm valid inits
     assert_raises(AssertionError, nitarray, [0, 1, 42], n=2)
 
+
+
+
+#
+# Test general methods
+# 
+
+def test_append():
+    n = nitarray([1, 2, 0], 3)
+    nid = id(n)
+    assert_equal(n._bitarray, ba.bitarray('011000'))
+
+    n.append(1)
+    assert_equal(id(n), nid)
+    assert_equal(n._bitarray, ba.bitarray('01100001'))
+
+    n.append('2')
+    assert_equal(id(n), nid)
+    assert_equal(n._bitarray, ba.bitarray('0110000110'))
+    

@@ -57,3 +57,15 @@ class nitarray(object):
         # Create underlying bit array
         self._bitarray = ba.bitarray()
         self._bitarray.encode(encodings_cache[n], initial)
+
+
+    #
+    # General methods
+    # 
+
+    def append(self, x):
+        """Appends the nit x to the end of the array."""
+        x = int(x)
+        assert (x in self._allowed_nits)
+        x_array = encodings_cache[self._n][x]
+        self._bitarray = self._bitarray + x_array
