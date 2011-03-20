@@ -204,3 +204,37 @@ class nitarray(object):
         seq_array = ba.bitarray()
         seq_array.encode(encodings_cache[self._n], seq)
         self._bitarray += seq_array
+
+
+    def fromfile(self, f):
+        """Extends the nitarray with values from a file f."""
+        # Allow f to be a path to a file or a file object
+        opened_here = False
+        if isinstance(f, basestring):
+            f = open(f, 'r')
+            opened_here = True
+
+        # Get the contents of the file
+        s = f.read()
+
+        # Close the file if f was initially a path
+        if opened_here:
+            f.close()
+
+        # Ensure that this char encoding is available
+        if ('char', self._n) not in encodings_cache:
+            encodings_cache['char', self._n] = char_encoding(self._n)
+
+        # Encode this file as nits and extend the current bitarray
+        self.encode(encodings_cache['char', self._n], s)       
+
+
+    def fromstring(self, s):
+        """Extend the nitarray from a string interpreting the characters 
+        as nitarrays themselves."""
+        # Ensure that this char encoding is available
+        if ('char', self._n) not in encodings_cache:
+            encodings_cache['char', self._n] = char_encoding(self._n)
+
+        # Encode this string as nits and extend the current bitarray
+        self.encode(encodings_cache['char', self._n], s)       

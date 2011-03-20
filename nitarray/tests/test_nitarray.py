@@ -3,6 +3,7 @@ from nose.tools import assert_equal, assert_raises
 import bitarray as ba
 
 from ..nitarray import nitarray
+from StringIO import StringIO
 
 #
 # Test init method
@@ -129,3 +130,27 @@ def test_extend():
     assert_equal(n._bitarray, ba.bitarray('011000'))
 
     assert_raises(AssertionError, n.extend, [42])
+
+
+def test_fromfile():
+    f = StringIO("LOL")
+    n = nitarray([], 2)
+    n.fromfile(f)
+    assert_equal(n._bitarray, ba.bitarray('010011000100111101001100'))
+
+    f = StringIO("LOL")
+    n = nitarray([], 3)
+    n.fromfile(f)
+    assert_equal(n._bitarray, ba.bitarray('000010100101000010101001000010100101'))
+
+
+def test_fromstring():
+    s = "LOL"
+    n = nitarray([], 2)
+    n.fromstring(s)
+    assert_equal(n._bitarray, ba.bitarray('010011000100111101001100'))
+
+    s = "LOL"
+    n = nitarray([], 3)
+    n.fromstring(s)
+    assert_equal(n._bitarray, ba.bitarray('000010100101000010101001000010100101'))
