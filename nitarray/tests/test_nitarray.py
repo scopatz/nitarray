@@ -250,7 +250,6 @@ def test_sort():
 
 def test_tofile():
     f = StringIO()
-
     n = nitarray([], 2)
     n._bitarray = ba.bitarray('010011000100111101001100')
     n.tofile(f)
@@ -263,15 +262,13 @@ def test_tofile():
     assert_equal(f.getvalue(), "LOL")
 
 
-def test_fromstring():
-    s = "LOL"
+def test_tostring():
     n = nitarray([], 2)
-    n.fromstring(s)
-    assert_equal(n._bitarray, ba.bitarray('010011000100111101001100'))
+    n._bitarray = ba.bitarray('010011000100111101001100')
+    s = n.tostring()
+    assert_equal(s, "LOL")
 
-    s = "LOL"
     n = nitarray([], 3)
-    n.fromstring(s)
-    assert_equal(n._bitarray, ba.bitarray('000010100101000010101001000010100101'))
-
-
+    n._bitarray = ba.bitarray('000010100101000010101001000010100101')
+    s = n.tostring()
+    assert_equal(s, "LOL")
