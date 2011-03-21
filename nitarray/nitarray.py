@@ -187,6 +187,13 @@ class nitarray(object):
         self._bitarray = temp_bitarray
 
 
+    def __eq__(self, other):
+        if not isinstance(other, nitarray):
+            raise NotImplemented
+
+        b = (self._n == other._n) and (self._bitarray == other._bitarray)
+        return b
+
 
     #
     # General methods

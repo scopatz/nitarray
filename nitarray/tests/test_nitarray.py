@@ -142,7 +142,24 @@ def test_delitem():
 
     del n[1]
     assert_equal(n._bitarray, ba.bitarray('0010'))
-    
+
+
+def test_eq():
+    x = nitarray('0,2,1', 3)
+    y = nitarray('1', 3)
+    z = nitarray('0,2,1,1', 3)
+
+    assert (x == x)
+    assert (y == y)
+    assert (z == z)    
+
+    assert (z == (x + y))
+
+    y1 = nitarray('1', 4)
+    assert not (y == y1)
+
+    y2 = nitarray('1', 2)
+    assert not (y == y2)
 
 
 #
