@@ -184,3 +184,16 @@ def test_insert():
 
     assert_raises(AssertionError, n.insert, 0, 42)
     assert_raises(AssertionError, n.insert, 42, 42)
+
+
+def test_pop():
+    n = nitarray('2,0,0,2,0', 3)
+
+    p = n.pop(0)
+    assert_equal(p, 2)
+
+    p = n.pop()
+    assert_equal(p, 0)
+
+    p = n.pop(1)
+    assert_equal(p, 0)

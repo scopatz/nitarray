@@ -271,3 +271,10 @@ class nitarray(object):
 
         # Replace bitarray in-place
         self._bitarray = temp_bitarray
+
+
+    def pop(self, i=-1):
+        """Removes a nit from position i of the array and returns its value."""
+        decoded = self._bitarray.decode(encodings_cache[self._n])
+        p = decoded.pop(i)
+        return p        
