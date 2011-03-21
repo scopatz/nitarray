@@ -275,6 +275,14 @@ class nitarray(object):
 
     def pop(self, i=-1):
         """Removes a nit from position i of the array and returns its value."""
-        decoded = self._bitarray.decode(encodings_cache[self._n])
-        p = decoded.pop(i)
+        ba_i = i * self._bits_per_nit
+
+        # Pop the bits from the underlying array
+        popped_bits = [self._bitarray.pop(ba_i) for r in range(self._bits_per_nit)]
+
+        # calulated the popped value
+        popped_bitarray = ba.bitarray(popped_bits)
+        decoded = popped_bitarray.decode(encodings_cache[self._n])
+        p = decoded[0]
+
         return p        

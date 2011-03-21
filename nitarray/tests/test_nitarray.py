@@ -188,12 +188,16 @@ def test_insert():
 
 def test_pop():
     n = nitarray('2,0,0,2,0', 3)
+    assert_equal(n._bitarray, ba.bitarray('1000001000'))
 
     p = n.pop(0)
     assert_equal(p, 2)
+    assert_equal(n._bitarray, ba.bitarray('00001000'))
 
     p = n.pop()
     assert_equal(p, 0)
+    assert_equal(n._bitarray, ba.bitarray('000010'))
 
     p = n.pop(1)
     assert_equal(p, 0)
+    assert_equal(n._bitarray, ba.bitarray('0010'))
