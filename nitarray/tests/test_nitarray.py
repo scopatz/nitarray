@@ -227,6 +227,16 @@ def test_hash():
     assert_equal(hash(z), hash(z._bitarray))
 
 
+def test_iadd():
+    x = nitarray('0,2,1', 3)
+    y = nitarray('1', 3)
+
+    x += y    
+    assert_equal(x._bitarray, ba.bitarray('00100101'))
+
+    y += x
+    assert_equal(y._bitarray, ba.bitarray('0100100101'))
+
 
 #
 # Test general methods

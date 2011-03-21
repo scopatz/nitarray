@@ -272,6 +272,13 @@ class nitarray(object):
         return h
 
 
+    def __iadd__(self, other):
+        assert (self._n == other._n)
+        self._bitarray += other._bitarray
+        return self
+
+
+
     #
     # General methods
     # 
