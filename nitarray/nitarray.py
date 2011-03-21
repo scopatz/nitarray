@@ -343,3 +343,29 @@ class nitarray(object):
 
         # Replace the bitarray in-place
         self._bitarray = temp_bitarray
+
+
+    def tofile(self, f):
+        """Writes the nitarray to a file f, interpreting the nits as characters."""
+        # Ensure that this char encoding is available
+        if ('char', self._n) not in encodings_cache:
+            encodings_cache['char', self._n] = char_encoding(self._n)
+
+        # Decode this nitarray as characters and make into a string
+        decoded = self.decode(encodings_cache['char', self._n])
+        s = "".join(decoded)
+
+        # Allow f to be a path to a file or a file object
+        opened_here = False
+        if isinstance(f, basestring):
+            f = open(f, 'a')
+            opened_here = True
+
+        # Write the string rep to the file.
+        f.write(s)
+
+        # Close the file if f was initially a path
+        if opened_here:
+            f.close()
+
+        

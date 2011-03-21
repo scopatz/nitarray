@@ -246,3 +246,32 @@ def test_sort():
     n = nitarray('2,0,1,2,0', 3)
     n.sort(reverse=True)
     assert_equal(n._bitarray, ba.bitarray('1010010000'))
+
+
+def test_tofile():
+    f = StringIO()
+
+    n = nitarray([], 2)
+    n._bitarray = ba.bitarray('010011000100111101001100')
+    n.tofile(f)
+    assert_equal(f.getvalue(), "LOL")
+
+    f = StringIO()
+    n = nitarray([], 3)
+    n._bitarray = ba.bitarray('000010100101000010101001000010100101')
+    n.tofile(f)
+    assert_equal(f.getvalue(), "LOL")
+
+
+def test_fromstring():
+    s = "LOL"
+    n = nitarray([], 2)
+    n.fromstring(s)
+    assert_equal(n._bitarray, ba.bitarray('010011000100111101001100'))
+
+    s = "LOL"
+    n = nitarray([], 3)
+    n.fromstring(s)
+    assert_equal(n._bitarray, ba.bitarray('000010100101000010101001000010100101'))
+
+
