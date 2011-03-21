@@ -309,6 +309,24 @@ def test_mul():
     assert_equal(z._bitarray, ba.bitarray('01010101'))
 
 
+def test_ne():
+    x = nitarray('0,2,1', 3)
+    y = nitarray('1', 3)
+    z = nitarray('0,2,1,1', 3)
+
+    assert (x != y)
+    assert (y != z)
+    assert (z != x)    
+
+    assert not (z != (x + y))
+
+    y1 = nitarray('1', 4)
+    assert (y != y1)
+
+    y2 = nitarray('1', 2)
+    assert (y != y2)
+
+
 
 
 

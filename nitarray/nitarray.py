@@ -321,6 +321,13 @@ class nitarray(object):
         return n
 
 
+    def __ne__(self, other):
+        eq = self.__eq__(other)
+        ne = not eq
+        return ne
+
+
+
     #
     # General methods
     # 
