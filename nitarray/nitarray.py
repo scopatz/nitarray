@@ -164,6 +164,13 @@ class nitarray(object):
             return True
 
 
+    def __copy__(self, memo={}):
+        n = nitarray([], self._n)
+        n._bitarray = ba.bitarray(self._bitarray)
+        return n
+
+    __deepcopy__ = __copy__
+
 
     #
     # General methods

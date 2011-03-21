@@ -1,9 +1,10 @@
-from nose.tools import assert_equal, assert_raises
+from StringIO import StringIO
+from copy import copy, deepcopy
 
+from nose.tools import assert_equal, assert_not_equal, assert_raises
 import bitarray as ba
 
 from ..nitarray import nitarray
-from StringIO import StringIO
 
 #
 # Test init method
@@ -112,6 +113,24 @@ def test_contains():
     assert (2 not in n)
     assert (42 not in n)
 
+
+def test_copy():
+    x = nitarray('0,2,1', 3)
+
+    y = copy(x)
+    assert_equal(x._n, y._n)
+    assert_equal(x._bitarray, y._bitarray)
+    assert_not_equal(id(x._bitarray), id(y._bitarray))
+    assert_not_equal(id(x), id(y))
+
+    y = deepcopy(x)
+    assert_equal(x._n, y._n)
+    assert_equal(x._bitarray, y._bitarray)
+    assert_not_equal(id(x._bitarray), id(y._bitarray))
+    assert_not_equal(id(x), id(y))
+
+
+    
 
 
 #
