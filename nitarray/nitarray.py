@@ -345,6 +345,13 @@ class nitarray(object):
         self._bitarray = temp_bitarray
 
 
+    def to01(self):
+        """Returns the nitarray to as a comma-separated string of ints cooresponding to the nits."""
+        l = self.tolist()
+        s = ",".join([str(i) for i in l])
+        return s
+
+
     def tofile(self, f):
         """Writes the nitarray to a file f, interpreting the nits as characters."""
         # Ensure that this char encoding is available

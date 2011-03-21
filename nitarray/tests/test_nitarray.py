@@ -248,6 +248,12 @@ def test_sort():
     assert_equal(n._bitarray, ba.bitarray('1010010000'))
 
 
+def test_to01():
+    n = nitarray('2,0,1,2,0', 3)
+    s = n.to01()
+    assert_equal(s, '2,0,1,2,0')
+
+
 def test_tofile():
     f = StringIO()
     n = nitarray([], 2)
