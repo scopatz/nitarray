@@ -295,9 +295,15 @@ class nitarray(object):
 
 
     def __le__(self, other):
-        gt = (other < self)
+        gt = self.__gt__(other)
         le = not gt
         return le
+
+
+    def __lt__(self, other):
+        ge = self.__ge__(other)
+        lt = not ge
+        return lt
 
 
 

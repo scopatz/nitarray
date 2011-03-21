@@ -162,7 +162,7 @@ def test_eq():
     assert not (y == y2)
 
 
-def test_ge():
+def test_le():
     x = nitarray('0,2,1', 3)
     y = nitarray('1', 3)
     z = nitarray('0,2,1,1', 3)
@@ -200,7 +200,7 @@ def test_getitem():
     assert_equal(y._bitarray, ba.bitarray('010100'))
 
 
-def test_gt():
+def test_lt():
     x = nitarray('0,2,1', 3)
     y = nitarray('1', 3)
     z = nitarray('0,2,1,1', 3)
@@ -214,7 +214,6 @@ def test_gt():
     assert not (z < y)
     assert not (z < x)    
     assert not ((x + y) < z)
-
 
 
 def test_hash():
@@ -261,7 +260,7 @@ def test_iter():
     assert_equal(l, [0, 2, 1, 1, 0, 2])
 
 
-def test_le():
+def test_ge():
     x = nitarray('0,2,1', 3)
     y = nitarray('1', 3)
     z = nitarray('0,2,1,1', 3)
@@ -275,6 +274,24 @@ def test_le():
     assert not (y >= z)
     assert not (x >= z)    
     assert ((x + y) >= z)
+
+
+def test_gt():
+    x = nitarray('0,2,1', 3)
+    y = nitarray('1', 3)
+    z = nitarray('0,2,1,1', 3)
+
+    assert not (y > x)
+    assert not (y > z)
+    assert not (x > z)    
+    assert not (z > (x + y))
+
+    assert (x > y)
+    assert (z > y)
+    assert (z > x)    
+    assert not ((x + y) > z)
+
+
 
 
 
