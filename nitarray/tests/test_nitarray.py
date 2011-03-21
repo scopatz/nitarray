@@ -178,6 +178,31 @@ def test_ge():
     assert ((x + y) <= z)
 
 
+def test_getitem():
+    x = nitarray('0,2,1,1,0,0,2', 3)
+
+    y = x[1:3]
+    assert_equal(y._bitarray, ba.bitarray('1001'))
+
+    y = x[0]
+    assert_equal(y._bitarray, ba.bitarray('00'))
+
+    y = x[2]
+    assert_equal(y._bitarray, ba.bitarray('01'))
+
+    y = x[-2]
+    assert_equal(y._bitarray, ba.bitarray('00'))
+
+    y = x[-1]
+    assert_equal(y._bitarray, ba.bitarray('10'))
+
+    y = x[-5:-2]
+    assert_equal(y._bitarray, ba.bitarray('010100'))
+
+
+
+
+
 #
 # Test general methods
 # 

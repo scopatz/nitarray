@@ -212,6 +212,40 @@ class nitarray(object):
 
         return True
 
+
+    def __getitem__(self, key):
+        # Map slice from nit-space to bit-space
+        if isinstance(key, slice):
+            if key.start < 0:
+                i = (len(self) + key.start) * self._bits_per_nit
+            else:
+                i = key.start * self._bits_per_nit
+
+            if key.stop < 0:
+                j = (len(self) + key.stop) * self._bits_per_nit
+            else:
+                j = key.stop * self._bits_per_nit
+
+        elif isinstance(key, int) or isinstance(key, long):
+            if key < 0:
+                key = len(self) + key
+
+            i = key * self._bits_per_nit
+            j = i + self._bits_per_nit
+
+        else:
+            raise NotImplemented
+
+        # Make new slice
+        sl = slice(i, j)
+
+        # get new nitarray
+        n = nitarray([], self._n)
+        n._bitarray = self._bitarray[sl]
+        return n
+
+
+
     #
     # General methods
     # 
