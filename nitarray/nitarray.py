@@ -289,6 +289,10 @@ class nitarray(object):
         return self
 
 
+    def __iter__(self):
+        for i in range(len(self)):
+            yield self[i]
+
 
     #
     # General methods
