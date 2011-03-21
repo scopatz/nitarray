@@ -172,6 +172,22 @@ class nitarray(object):
     __deepcopy__ = __copy__
 
 
+    def __delitem__(self, i):
+        i = int(i)
+        if i < 0:
+            i = self.__len__() + i
+        ba_i = i * self._bits_per_nit
+        ba_j = ba_i + self._bits_per_nit
+
+        # Construct temporary array
+        temp_bitarray = ba.bitarray(self._bitarray[:ba_i])
+        temp_bitarray += self._bitarray[ba_j:]
+
+        # Replace bitarray in-place
+        self._bitarray = temp_bitarray
+
+
+
     #
     # General methods
     # 

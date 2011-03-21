@@ -130,6 +130,18 @@ def test_copy():
     assert_not_equal(id(x), id(y))
 
 
+def test_delitem():
+    n = nitarray('2,0,0,2,0', 3)
+    assert_equal(n._bitarray, ba.bitarray('1000001000'))
+
+    del n[0]
+    assert_equal(n._bitarray, ba.bitarray('00001000'))
+
+    del n[-1]
+    assert_equal(n._bitarray, ba.bitarray('000010'))
+
+    del n[1]
+    assert_equal(n._bitarray, ba.bitarray('0010'))
     
 
 
