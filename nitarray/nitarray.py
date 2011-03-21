@@ -113,9 +113,8 @@ class nitarray(object):
 
 
     def __repr__(self):
-        decoded = self._bitarray.decode(encodings_cache[self._n])
-        decoded = ",".join([str(i) for i in decoded])
-        r = "nitarray('{na}', {n})".format(na=decoded, n=self._n)
+        s = self.to01()
+        r = "nitarray('{na}', {n})".format(na=s, n=self._n)
         return r
 
 
