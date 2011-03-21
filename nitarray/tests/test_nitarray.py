@@ -235,3 +235,14 @@ def test_setall():
 
     assert_raises(AssertionError, n.setall, 42)
 
+
+def test_sort():
+    n = nitarray('2,0,1,2,0', 3)
+    assert_equal(n._bitarray, ba.bitarray('1000011000'))
+
+    n.sort()
+    assert_equal(n._bitarray, ba.bitarray('0000011010'))
+
+    n = nitarray('2,0,1,2,0', 3)
+    n.sort(reverse=True)
+    assert_equal(n._bitarray, ba.bitarray('1010010000'))

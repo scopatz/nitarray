@@ -329,3 +329,17 @@ class nitarray(object):
             j += self._bits_per_nit
 
             self._bitarray[i:j] = xnit
+
+
+    def sort(self, reverse=False):
+        """Sorts the nitarray in-place.  The reverse keyword reverses this sort."""
+        # Decode the array and sort in integer space
+        decoded = self._bitarray.decode(encodings_cache[self._n])
+        decoded.sort(reverse=reverse)
+
+        # Create a temp array that is sorted
+        temp_bitarray = ba.bitarray()
+        temp_bitarray.encode(encodings_cache[self._n], decoded)
+
+        # Replace the bitarray in-place
+        self._bitarray = temp_bitarray
