@@ -4,7 +4,6 @@ import bitarray as ba
 
 
 encodings_cache = {}
-char_bin_encodings = {chr(i): ba.bitarray('{0:0>8}'.format(bin(i)[2:])) for i in range(256)}
 
 
 def nit(x, n):
