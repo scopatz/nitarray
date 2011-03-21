@@ -273,8 +273,19 @@ class nitarray(object):
 
 
     def __iadd__(self, other):
+        if not isinstance(other, nitarray):
+            other = nitarray(other, self._n)
+
         assert (self._n == other._n)
         self._bitarray += other._bitarray
+        return self
+
+
+    def __imul__(self, other):
+        if not (isinstance(other, int) or isinstance(other, long)):
+            raise NotImplemented
+
+        self._bitarray *= other
         return self
 
 

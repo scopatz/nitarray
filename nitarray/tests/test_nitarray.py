@@ -238,6 +238,18 @@ def test_iadd():
     assert_equal(y._bitarray, ba.bitarray('0100100101'))
 
 
+def test_imul():
+    x = nitarray('0,2,1', 3)
+    y = nitarray('1', 3)
+
+    x *= 2
+    assert_equal(x._bitarray, ba.bitarray('001001001001'))
+
+    y *= 4
+    assert_equal(y._bitarray, ba.bitarray('01010101'))
+
+
+
 #
 # Test general methods
 # 
