@@ -162,6 +162,22 @@ def test_eq():
     assert not (y == y2)
 
 
+def test_ge():
+    x = nitarray('0,2,1', 3)
+    y = nitarray('1', 3)
+    z = nitarray('0,2,1,1', 3)
+
+    assert (y <= x)
+    assert (y <= z)
+    assert (x <= z)    
+    assert (z <= (x + y))
+
+    assert not (x <= y)
+    assert not (z <= y)
+    assert not (z <= x)    
+    assert ((x + y) <= z)
+
+
 #
 # Test general methods
 # 

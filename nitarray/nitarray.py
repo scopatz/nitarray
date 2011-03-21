@@ -195,6 +195,23 @@ class nitarray(object):
         return b
 
 
+    def __ge__(self, other):
+        if not isinstance(other, nitarray):
+            raise NotImplemented
+
+        # Perform simple test based on lengths
+        if len(other) < len(self):
+            return True
+        elif len(self) < len(other):
+            return False
+
+        # Must perform deep test because they are the same length
+        for s, o in zip(self.tolist(), other.tolist()):
+            if s < o:
+                return False
+
+        return True
+
     #
     # General methods
     # 
