@@ -71,6 +71,39 @@ def test_len():
     assert_equal(l, 0)
 
 
+def test_add():
+    x = nitarray('0,2,1', 3)
+    y = nitarray('1', 3)
+
+    z = x + y
+    assert_equal(z._bitarray, ba.bitarray('00100101'))
+
+    z = y + x
+    assert_equal(z._bitarray, ba.bitarray('01001001'))
+
+    q = nitarray(6, 42)
+    assert_raises(AssertionError, x.__add__, q)
+
+    z = x + [0]
+    assert_equal(z._bitarray, ba.bitarray('00100100'))
+
+    z = [2] + y
+    assert_equal(z._bitarray, ba.bitarray('1001'))
+
+    z = x + '0,2'
+    assert_equal(z._bitarray, ba.bitarray('0010010010'))
+
+    z = '1,1' + y
+    assert_equal(z._bitarray, ba.bitarray('010101'))
+
+    z = x + 3
+    assert_equal(z._bitarray, ba.bitarray('001001000000'))
+
+    z = 3 + y
+    assert_equal(z._bitarray, ba.bitarray('00000001'))
+
+
+
 #
 # Test general methods
 # 

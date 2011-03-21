@@ -128,6 +128,32 @@ class nitarray(object):
         l = l_this_array / self._bits_per_nit
         return l
 
+
+    def __add__(self, y):
+        if not isinstance(y, nitarray):
+            y = nitarray(y, self._n)
+
+        assert (self._n == y._n)
+
+        n = nitarray([], self._n)
+        n._bitarray = ba.bitarray(self._bitarray)
+        n._bitarray += y._bitarray
+
+        return n
+
+
+    def __radd__(self, y):
+        if not isinstance(y, nitarray):
+            y = nitarray(y, self._n)
+
+        assert (self._n == y._n)
+
+        n = nitarray([], self._n)
+        n._bitarray = ba.bitarray(y._bitarray)
+        n._bitarray += self._bitarray
+
+        return n
+
     #
     # General methods
     # 
