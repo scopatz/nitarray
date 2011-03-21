@@ -200,6 +200,22 @@ def test_getitem():
     assert_equal(y._bitarray, ba.bitarray('010100'))
 
 
+def test_gt():
+    x = nitarray('0,2,1', 3)
+    y = nitarray('1', 3)
+    z = nitarray('0,2,1,1', 3)
+
+    assert (y < x)
+    assert (y < z)
+    assert (x < z)    
+    assert not (z < (x + y))
+
+    assert not (x < y)
+    assert not (z < y)
+    assert not (z < x)    
+    assert not ((x + y) < z)
+
+
 
 
 
