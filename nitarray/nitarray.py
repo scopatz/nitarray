@@ -104,6 +104,9 @@ class nitarray(object):
         if n not in encodings_cache:
             encodings_cache[n] = nit_encoding(n)
 
+        # Sets the length of the nit
+        self._bits_per_nit = encodings_cache[self._n][0].length()
+
         # Create underlying bit array
         self._bitarray = ba.bitarray()
         self._bitarray.encode(encodings_cache[n], initial)
@@ -123,9 +126,7 @@ class nitarray(object):
 
     def __len__(self):
         l_this_array = self._bitarray.length()
-        l_zero_array = encodings_cache[self._n][0].length()
-
-        l = l_this_array / l_zero_array
+        l = l_this_array / self._bits_per_nit
         return l
 
     #
@@ -252,3 +253,21 @@ class nitarray(object):
             raise ValueError(msg)
 
         return idx
+
+
+    def insert(self, i, x):
+        """Inserts the nit x before position i in the array."""
+        assert (x in self._allowed_nits)
+
+        # Init prefix
+        ba_i = i * self._bits_per_nit
+        temp_bitarray = ba.bitarray(self._bitarray[:ba_i])
+
+        # Append nit
+        temp_bitarray += encodings_cache[self._n][x]
+
+        # Append rest of original array
+        temp_bitarray += self._bitarray[ba_i:]
+
+        # Replace bitarray in-place
+        self._bitarray = temp_bitarray

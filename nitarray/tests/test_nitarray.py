@@ -164,3 +164,23 @@ def test_index():
 
     assert_raises(ValueError, n.index, 1)
     assert_raises(ValueError, n.index, 42)
+
+
+def test_insert():
+    n = nitarray([1], 3)
+    assert_equal(n._bitarray, ba.bitarray('01'))
+
+    n.insert(0, 0)
+    assert_equal(n._bitarray, ba.bitarray('0001'))
+
+    n.insert(1, 2)
+    assert_equal(n._bitarray, ba.bitarray('001001'))
+
+    n.insert(-1, 0)
+    assert_equal(n._bitarray, ba.bitarray('00100001'))
+
+    n.insert(-3, 2)
+    assert_equal(n._bitarray, ba.bitarray('0010100001'))
+
+    assert_raises(AssertionError, n.insert, 0, 42)
+    assert_raises(AssertionError, n.insert, 42, 42)
