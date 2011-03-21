@@ -181,9 +181,6 @@ def test_le():
 def test_getitem():
     x = nitarray('0,2,1,1,0,0,2', 3)
 
-    y = x[1:3]
-    assert_equal(y._bitarray, ba.bitarray('1001'))
-
     y = x[0]
     assert_equal(y._bitarray, ba.bitarray('00'))
 
@@ -196,8 +193,19 @@ def test_getitem():
     y = x[-1]
     assert_equal(y._bitarray, ba.bitarray('10'))
 
+    y = x[1:3]
+    assert_equal(y._bitarray, ba.bitarray('1001'))
+
     y = x[-5:-2]
     assert_equal(y._bitarray, ba.bitarray('010100'))
+
+    y = x[:3]
+    assert_equal(y._bitarray, ba.bitarray('001001'))
+
+    y = x[-2:]
+    assert_equal(y._bitarray, ba.bitarray('0010'))
+
+
 
 
 def test_lt():
@@ -325,6 +333,40 @@ def test_ne():
 
     y2 = nitarray('1', 2)
     assert (y != y2)
+
+
+def test_setitem():
+    x = nitarray('0,2,1,1,0,0,2', 3)
+    assert_equal(x._bitarray, ba.bitarray('00100101000010'))
+
+    x[1:3] = 0
+    assert_equal(x._bitarray, ba.bitarray('00000001000010'))
+
+    x[1:3] = '1,2'
+    assert_equal(x._bitarray, ba.bitarray('00011001000010'))
+
+    x[-5:-2] = [2, 2, 1]
+    assert_equal(x._bitarray, ba.bitarray('00011010010010'))
+
+    x[-2:] = nitarray([1, 0], 3)
+    assert_equal(x._bitarray, ba.bitarray('00011010010100'))
+
+    x[:3] = 2
+    assert_equal(x._bitarray, ba.bitarray('10101010010100'))
+
+    x[0] = 0
+    assert_equal(x._bitarray, ba.bitarray('00101010010100'))
+
+    x[2] = '1' 
+    assert_equal(x._bitarray, ba.bitarray('00100110010100'))
+
+    x[-2] = [2]
+    assert_equal(x._bitarray, ba.bitarray('00100110011000'))
+
+    x[-1] = nitarray([2], 3)
+    assert_equal(x._bitarray, ba.bitarray('00100110011010'))
+
+
 
 
 

@@ -216,12 +216,16 @@ class nitarray(object):
     def __getitem__(self, key):
         # Map slice from nit-space to bit-space
         if isinstance(key, slice):
-            if key.start < 0:
+            if key.start is None:
+                i = 0
+            elif key.start < 0:
                 i = (len(self) + key.start) * self._bits_per_nit
             else:
                 i = key.start * self._bits_per_nit
 
-            if key.stop < 0:
+            if key.stop is None:
+                j = len(self) * self._bits_per_nit
+            elif key.stop < 0:
                 j = (len(self) + key.stop) * self._bits_per_nit
             else:
                 j = key.stop * self._bits_per_nit
@@ -326,6 +330,49 @@ class nitarray(object):
         ne = not eq
         return ne
 
+
+    def __setitem__(self, key, value):
+        # Map slice from nit-space to bit-space
+        if isinstance(key, slice):
+            if key.start is None:
+                i = 0
+            elif key.start < 0:
+                i = (len(self) + key.start) * self._bits_per_nit
+            else:
+                i = key.start * self._bits_per_nit
+
+            if key.stop is None:
+                j = len(self) * self._bits_per_nit
+            elif key.stop < 0:
+                j = (len(self) + key.stop) * self._bits_per_nit
+            else:
+                j = key.stop * self._bits_per_nit
+
+        elif isinstance(key, int) or isinstance(key, long):
+            if key < 0:
+                key = len(self) + key
+
+            i = key * self._bits_per_nit
+            j = i + self._bits_per_nit
+
+        else:
+            raise NotImplemented
+
+        # Make new slice
+        sl = slice(i, j)
+
+        # get new nitarray
+        if isinstance(value, nitarray):
+            pass
+        elif isinstance(value, int) or isinstance(value, long):
+            assert (value in self._allowed_nits)
+            value = nitarray([value], self._n)
+            value *= (sl.stop - sl.start) / self._bits_per_nit
+        else:
+            value = nitarray(value, self._n)
+
+        # Set the slice, finally
+        self._bitarray[sl] = value._bitarray
 
 
     #
