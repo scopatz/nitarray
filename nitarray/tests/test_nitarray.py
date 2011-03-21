@@ -104,6 +104,16 @@ def test_add():
 
 
 
+def test_contains():
+    n = nitarray('1,0', 3)
+
+    assert (0 in n)
+    assert (1 in n)
+    assert (2 not in n)
+    assert (42 not in n)
+
+
+
 #
 # Test general methods
 # 

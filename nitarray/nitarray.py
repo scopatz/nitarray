@@ -154,6 +154,17 @@ class nitarray(object):
 
         return n
 
+
+    def __contains__(self, item):
+        c = self.count(item)
+
+        if c == 0:
+            return False
+        else:
+            return True
+
+
+
     #
     # General methods
     # 
