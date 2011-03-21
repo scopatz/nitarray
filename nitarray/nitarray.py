@@ -306,6 +306,20 @@ class nitarray(object):
         return lt
 
 
+    def __mul__(self, other):
+        if not (isinstance(other, int) or isinstance(other, long)):
+            raise NotImplemented
+
+        n = nitarray([], self._n)
+        n._bitarray = ba.bitarray(self._bitarray) * other
+
+        return n
+
+
+    def __rmul__(self, other):
+        n = self.__mul__(other)
+        return n
+
 
     #
     # General methods

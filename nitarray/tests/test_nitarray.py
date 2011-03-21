@@ -292,6 +292,21 @@ def test_gt():
     assert not ((x + y) > z)
 
 
+def test_mul():
+    x = nitarray('0,2,1', 3)
+    y = nitarray('1', 3)
+
+    z = x * 2
+    assert_equal(z._bitarray, ba.bitarray('001001001001'))
+
+    z = y * 4
+    assert_equal(z._bitarray, ba.bitarray('01010101'))
+
+    z = 2 * x
+    assert_equal(z._bitarray, ba.bitarray('001001001001'))
+
+    z = 4 * y
+    assert_equal(z._bitarray, ba.bitarray('01010101'))
 
 
 
