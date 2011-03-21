@@ -261,6 +261,25 @@ def test_iter():
     assert_equal(l, [0, 2, 1, 1, 0, 2])
 
 
+def test_le():
+    x = nitarray('0,2,1', 3)
+    y = nitarray('1', 3)
+    z = nitarray('0,2,1,1', 3)
+
+    assert (x >= y)
+    assert (z >= y)
+    assert (z >= x)    
+    assert (z >= (x + y))
+
+    assert not (y >= x)
+    assert not (y >= z)
+    assert not (x >= z)    
+    assert ((x + y) >= z)
+
+
+
+
+
 #
 # Test general methods
 # 

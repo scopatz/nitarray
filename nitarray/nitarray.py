@@ -294,6 +294,13 @@ class nitarray(object):
             yield self[i]
 
 
+    def __le__(self, other):
+        gt = (other < self)
+        le = not gt
+        return le
+
+
+
     #
     # General methods
     # 
