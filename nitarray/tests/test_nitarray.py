@@ -61,6 +61,16 @@ def test_repr():
     assert_equal(r, "nitarray('1,0,2,2,0', 3)")
 
 
+def test_len():
+    n = nitarray([1, 0, 2, 2, 0], 3)
+    l = len(n)
+    assert_equal(l, 5)
+
+    n = nitarray([], 42)
+    l = len(n)
+    assert_equal(l, 0)
+
+
 #
 # Test general methods
 # 
