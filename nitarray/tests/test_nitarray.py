@@ -217,6 +217,15 @@ def test_gt():
 
 
 
+def test_hash():
+    x = nitarray('0,2,1', 3)
+    y = nitarray('1', 3)
+    z = nitarray('0,2,1,1', 3)
+
+    assert_equal(hash(x), hash(x._bitarray))
+    assert_equal(hash(y), hash(y._bitarray))
+    assert_equal(hash(z), hash(z._bitarray))
+
 
 
 #

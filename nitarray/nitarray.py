@@ -267,6 +267,11 @@ class nitarray(object):
         return True
 
 
+    def __hash__(self):
+        h = hash(self._bitarray)
+        return h
+
+
     #
     # General methods
     # 
