@@ -275,14 +275,38 @@ class nitarray(object):
 
     def pop(self, i=-1):
         """Removes a nit from position i of the array and returns its value."""
+        # Find indices
+        if i < 0:
+            i = self.__len__() + i
         ba_i = i * self._bits_per_nit
-
-        # Pop the bits from the underlying array
-        popped_bits = [self._bitarray.pop(ba_i) for r in range(self._bits_per_nit)]
+        ba_j = ba_i + self._bits_per_nit
 
         # calulated the popped value
-        popped_bitarray = ba.bitarray(popped_bits)
+        popped_bitarray = ba.bitarray(self._bitarray[ba_i:ba_j])
         decoded = popped_bitarray.decode(encodings_cache[self._n])
+        print ba_i, ba_j, popped_bitarray
         p = decoded[0]
 
+        # Temp. pop the bits from the underlying array
+        temp_bitarray = ba.bitarray(self._bitarray[:ba_i])
+        temp_bitarray += self._bitarray[ba_j:]
+
+        # Replace bitarray in-place
+        self._bitarray = temp_bitarray
+
         return p        
+
+
+    def remove(self, x):
+        """Removes the first occurence of the nit x in the array."""
+        # Find indices
+        i = self.index(x)
+        ba_i = i * self._bits_per_nit
+        ba_j = ba_i + self._bits_per_nit
+
+        # Construct temporary array
+        temp_bitarray = ba.bitarray(self._bitarray[:ba_i])
+        temp_bitarray += self._bitarray[ba_j:]
+
+        # Replace bitarray in-place
+        self._bitarray = temp_bitarray

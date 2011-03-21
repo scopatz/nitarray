@@ -201,3 +201,21 @@ def test_pop():
     p = n.pop(1)
     assert_equal(p, 0)
     assert_equal(n._bitarray, ba.bitarray('0010'))
+
+
+def test_remove():
+    n = nitarray('2,0,0,2,0', 3)
+    assert_equal(n._bitarray, ba.bitarray('1000001000'))
+
+    n.remove(0)
+    assert_equal(n._bitarray, ba.bitarray('10001000'))
+
+    n.remove(2)
+    assert_equal(n._bitarray, ba.bitarray('001000'))
+
+    n.append(1)
+    assert_equal(n._bitarray, ba.bitarray('00100001'))
+
+    n.remove(1)
+    assert_equal(n._bitarray, ba.bitarray('001000'))
+
