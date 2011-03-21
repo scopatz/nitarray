@@ -55,6 +55,10 @@ def test_nit_array_init3():
     assert_raises(AssertionError, nitarray, [0, 1, 42], n=2)
 
 
+def test_repr():
+    n = nitarray([1, 0, 2, 2, 0], 3)
+    r = repr(n)
+    assert_equal(r, "nitarray('1,0,2,2,0', 3)")
 
 
 #
