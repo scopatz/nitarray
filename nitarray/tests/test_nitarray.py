@@ -262,6 +262,12 @@ def test_tofile():
     assert_equal(f.getvalue(), "LOL")
 
 
+def test_tolist():
+    n = nitarray('2,0,1,2,0', 3)
+    l = n.tolist()
+    assert_equal(l, [2, 0, 1, 2, 0])
+
+
 def test_tostring():
     n = nitarray([], 2)
     n._bitarray = ba.bitarray('010011000100111101001100')

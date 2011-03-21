@@ -369,6 +369,13 @@ class nitarray(object):
             f.close()
 
 
+    def tolist(self):
+        """Returns the nitarray to as a list of ints cooresponding to the nits."""
+        # Decode this nitarray
+        decoded = self._bitarray.decode(encodings_cache[self._n])
+        return decoded
+
+
     def tostring(self):
         """Returns the nitarray to as a string, interpreting the nits as characters."""
         # Ensure that this char encoding is available
