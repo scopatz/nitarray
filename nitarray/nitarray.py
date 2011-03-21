@@ -310,3 +310,22 @@ class nitarray(object):
 
         # Replace bitarray in-place
         self._bitarray = temp_bitarray
+
+
+    def setall(self, x):
+        """Sets all nits in the array to x."""
+        assert (x in self._allowed_nits)
+
+        xnit = encodings_cache[self._n][x]
+
+        # Initialize indices
+        i = -self._bits_per_nit
+        j = 0
+        J = self._bitarray.length()
+
+        # set all nits
+        while j != J:
+            i += self._bits_per_nit
+            j += self._bits_per_nit
+
+            self._bitarray[i:j] = xnit

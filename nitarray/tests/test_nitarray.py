@@ -219,3 +219,19 @@ def test_remove():
     n.remove(1)
     assert_equal(n._bitarray, ba.bitarray('001000'))
 
+
+def test_setall():
+    n = nitarray('2,0,0,2,0', 3)
+    assert_equal(n._bitarray, ba.bitarray('1000001000'))
+
+    n.setall(2)
+    assert_equal(n._bitarray, ba.bitarray('1010101010'))
+
+    n.setall(1)
+    assert_equal(n._bitarray, ba.bitarray('0101010101'))
+
+    n.setall(0)
+    assert_equal(n._bitarray, ba.bitarray('0000000000'))
+
+    assert_raises(AssertionError, n.setall, 42)
+
