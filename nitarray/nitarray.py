@@ -548,7 +548,6 @@ class nitarray(object):
         # calulated the popped value
         popped_bitarray = ba.bitarray(self._bitarray[ba_i:ba_j])
         decoded = popped_bitarray.decode(encodings_cache[self._n])
-        print ba_i, ba_j, popped_bitarray
         p = decoded[0]
 
         # Temp. pop the bits from the underlying array

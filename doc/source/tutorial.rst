@@ -126,12 +126,19 @@ methods that you may apply.
     In [10]: n
     Out[10]: nitarray('1,2,2,0,2', 3)
 
+    In [11]: n.tolist()
+    Out[11]: [1, 2, 2, 0, 2]
+
+    In [12]: n.to01()
+    Out[12]: '1,2,2,0,2'
+
+
 Trying to append a nit that is greater than or equal to the base value is clearly not
 allowed.
 
 .. code-block:: ipython
 
-    In [11]: n.append(42)
+    In [13]: n.append(42)
     ---------------------------------------------------------------------------
     AssertionError                            Traceback (most recent call last)
 
@@ -175,6 +182,167 @@ be indexed into and sliced.  Assigment can also take place from indexes and slic
 
     In [7]: n
     Out[7]: nitarray('1,1,1,2,2,2,2,2,1,1', 3)
+
+    In [8]: del n[4:]
+
+    In [9]: n
+    Out[9]: nitarray('1,1,1,2', 3)
+
+    In [10]: n += nitarray('1,2,0', 3)
+
+    In [11]: n
+    Out[11]: nitarray('1,1,1,2,1,2,0', 3)
+
+    In [12]: n[3] = 0
+
+    In [13]: n
+    Out[13]: nitarray('1,1,1,0,1,2,0', 3)
+
+    In [14]: n[2:4] = '0,2'
+
+    In [15]: n
+    Out[15]: nitarray('1,1,0,2,1,2,0', 3)
+
+    In [16]: n[-5:-2]
+    Out[16]: nitarray('0,2,1', 3)
+
+    In [17]: n += [2,2,2,2]
+
+    In [18]: n
+    Out[18]: nitarray('1,1,0,2,1,2,0,2,2,2,2', 3)
+
+
+Other standard Python sequence interfaces are also available.
+
+.. code-block:: ipython
+
+    In [19]: n.pop(0)
+    Out[19]: 1
+
+    In [20]: n
+    Out[20]: nitarray('1,0,2,1,2,0,2,2,2,2', 3)
+
+    In [21]: n.index(2)
+    Out[21]: 2
+
+    In [22]: n.remove(0)
+
+    In [23]: n
+    Out[23]: nitarray('1,2,1,2,0,2,2,2,2', 3)
+
+    In [24]: n.extend([0, 1])
+
+    In [25]: n
+    Out[25]: nitarray('1,2,1,2,0,2,2,2,2,0,1', 3)
+
+    In [26]: n.insert(5, 0)
+
+    In [27]: n
+    Out[27]: nitarray('1,2,1,2,0,0,2,2,2,2,0,1', 3)
+
+    In [28]: n.sort()
+
+    In [29]: n
+    Out[29]: nitarray('0,0,0,1,1,1,2,2,2,2,2,2', 3)
+
+
+------------------------------
+Ecoding and Decoding nitarrays
+------------------------------
+The major use of bits is that arrays of bits can be encoded and decoded into other objects 
+(*e.g.* characters).  To fully simulate other computer architectures, hooks into 
+encoding and decoding :class:`nitarrays <nitarray.nitarray>` are also provided.
+
+An encoding is simply a mapping from unique objects to nitarrays.  We acomplish this very 
+naturally in Python using dictionaries.  We can then extend an existing nitarray using the
+:meth:`encode() <nitarray.nitarray.encode>` method, this dictionary, and an iterable of 
+the keys of the dictionary.  The following example uses strings, but any iterable of hashable
+objects would work as well.
+
+
+.. code-block:: ipython
+
+    In [1]: from nitarray import nitarray
+
+    In [2]: n = nitarray([], 42)
+
+    In [3]: d = {'L': nitarray([7], 42), 'O': nitarray(6, 42)}
+
+    In [4]: n.encode(d, 'LOL')
+
+    In [5]: n
+    Out[5]: nitarray('7,0,0,0,0,0,0,7', 42)
+
+
+To decode a nitarray pass in the same mapping as before to the 
+:meth:`decode() <nitarray.nitarray.decode>` method.  This will return a list  of the 
+keys of the coding.  
+
+.. code-block:: ipython
+
+    In [6]: n.decode(d)
+    Out[6]: ['L', 'O', 'L']
+
+As seen here, if you decode with the same dictionary as that you encoded with, 
+you obtain an equivelent iterable.  Hoever, you could have chosen to decode with another
+mapping.
+
+.. code-block:: ipython
+
+    In [7]: d1 = {1: nitarray([7], 42), '!': nitarray(2, 42)}
+    
+    In [8]: n.decode(d1)
+    Out[8]: [1, '!', '!', '!', 1]
+
+Encoding and decoding becomes very useful when dealing with sequences of characters, or strings.
+In fact, this is such a common use case that we provide a function to generate ASCII-to-nitarray
+encoding dictionaries, :func:`char_encoding() <nitarray.char_encoding>`.
+
+.. code-block:: ipython
+
+    In [1]: from nitarray import char_encoding
+
+    In [2]: char_encoding(3)
+    Out[2]: 
+    {'\x00': nitarray('0,0,0,0,0,0', 3),
+     '\x01': nitarray('0,0,0,0,0,1', 3),
+     '\x02': nitarray('0,0,0,0,0,2', 3),
+    ...
+     ' ': nitarray('0,0,1,0,1,2', 3),
+     '!': nitarray('0,0,1,0,2,0', 3),
+     '"': nitarray('0,0,1,0,2,1', 3),
+     '#': nitarray('0,0,1,0,2,2', 3),
+     '$': nitarray('0,0,1,1,0,0', 3),
+    ...
+     'A': nitarray('0,0,2,1,0,2', 3),
+     'B': nitarray('0,0,2,1,1,0', 3),
+     'C': nitarray('0,0,2,1,1,1', 3),
+    ...
+    }
+
+It is these character encodings that are used automatically when you use the 
+:meth:`tostring() <nitarray.nitarray.fromstring>`,
+:meth:`fromstring() <nitarray.nitarray.fromstring>`,
+:meth:`tofile() <nitarray.nitarray.fromstring>`, or
+:meth:`fromfile() <nitarray.nitarray.fromstring>` methods.
+
+.. code-block:: ipython
+
+    In [1]: from nitarray import nitarray
+
+    In [2]: n = nitarray([], 42)
+
+    In [3]: n.fromstring("No one expects the Spanish Inquisition!")
+
+    In [4]: n
+    Out[4]: nitarray('1,36,2,27,0,32,2,27,2,26,2,17,0,32,2,17,2,36,2,28,2,17,'
+                     '2,15,2,32,2,31,0,32,2,32,2,20,2,17,0,32,1,41,2,28,2,13,'
+                     '2,26,2,21,2,31,2,20,0,32,1,31,2,26,2,29,2,33,2,21,2,31,'
+                     '2,21,2,32,2,21,2,27,2,26,0,33', 42)
+
+    In [5]: n.tostring()
+    Out[5]: 'No one expects the Spanish Inquisition!'
+
 
 
 .. _trits: http://en.wikipedia.org/wiki/Trit
