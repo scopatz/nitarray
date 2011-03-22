@@ -143,6 +143,21 @@ def test_delitem():
     del n[1]
     assert_equal(n._bitarray, ba.bitarray('0010'))
 
+    n = nitarray('2,0,0,2,0', 3)
+    assert_equal(n._bitarray, ba.bitarray('1000001000'))
+
+    del n[2:4]
+    assert_equal(n._bitarray, ba.bitarray('100000'))
+
+    del n[:2]
+    assert_equal(n._bitarray, ba.bitarray('00'))
+
+    n = nitarray('2,0,0,2,0', 3)
+    assert_equal(n._bitarray, ba.bitarray('1000001000'))
+
+    del n[-3:]
+    assert_equal(n._bitarray, ba.bitarray('1000'))
+
 
 def test_eq():
     x = nitarray('0,2,1', 3)

@@ -171,19 +171,38 @@ class nitarray(object):
     __deepcopy__ = __copy__
 
 
-    def __delitem__(self, i):
-        i = int(i)
-        if i < 0:
-            i = self.__len__() + i
-        ba_i = i * self._bits_per_nit
-        ba_j = ba_i + self._bits_per_nit
+    def __delitem__(self, key):
+        # Map slice from nit-space to bit-space
+        if isinstance(key, slice):
+            if key.start is None:
+                i = 0
+            elif key.start < 0:
+                i = (len(self) + key.start) * self._bits_per_nit
+            else:
+                i = key.start * self._bits_per_nit
 
-        # Construct temporary array
-        temp_bitarray = ba.bitarray(self._bitarray[:ba_i])
-        temp_bitarray += self._bitarray[ba_j:]
+            if key.stop is None:
+                j = len(self) * self._bits_per_nit
+            elif key.stop < 0:
+                j = (len(self) + key.stop) * self._bits_per_nit
+            else:
+                j = key.stop * self._bits_per_nit
 
-        # Replace bitarray in-place
-        self._bitarray = temp_bitarray
+        elif isinstance(key, int) or isinstance(key, long):
+            if key < 0:
+                key = len(self) + key
+
+            i = key * self._bits_per_nit
+            j = i + self._bits_per_nit
+
+        else:
+            raise NotImplemented
+
+        # Make new slice
+        sl = slice(i, j)
+
+        # Delete bitarray in-place
+        del self._bitarray[sl]
 
 
     def __eq__(self, other):
