@@ -82,6 +82,100 @@ function.  For example,
      5: bitarray('101')}
 
 
+---------------
+Using nitarrays
+---------------
+Now that we know 'what' and 'why', it is time to get out hands dirty.  You can make a new 
+nitarray in a few different ways.
+
+.. code-block:: ipython
+
+    In [1]: from nitarray import nitarray    
+
+    In [2]: nitarray([1, 0, 2, 2, 0], 3)
+    Out[2]: nitarray('1,0,2,2,0', 3)
+
+    In [3]: nitarray('1,6,2,0,4', 7)
+    Out[3]: nitarray('1,6,2,0,4', 7)
+
+    In [4]: nitarray(37, 42)
+    Out[4]: nitarray('0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', 42)
+
+In the first instance we passed the :class:`nitarray <nitarray.nitarray>` an iterartor
+whose values are the nits.  In the second, we gave it a string of comma-separated nits.
+In the third, an integer passed in means that we want a zero-array of this length. 
+For all cases, we must pass in the base of the nitarray as the second argument.
+
+Once you have a :class:`nitarray <nitarray.nitarray>`, there are a number of useful
+methods that you may apply.
+
+.. code-block:: ipython
+
+    In [5]: n = nitarray([1, 0, 2, 2, 0], 3)
+
+    In [6]: n.append(2)
+
+    In [7]: n
+    Out[7]: nitarray('1,0,2,2,0,2', 3)
+
+    In [8]: n.count(2)
+    Out[8]: 3
+
+    In [9]: n.remove(0)
+
+    In [10]: n
+    Out[10]: nitarray('1,2,2,0,2', 3)
+
+Trying to append a nit that is greater than or equal to the base value is clearly not
+allowed.
+
+.. code-block:: ipython
+
+    In [11]: n.append(42)
+    ---------------------------------------------------------------------------
+    AssertionError                            Traceback (most recent call last)
+
+    /home/scopatz/<ipython console> in <module>()
+
+    /home/scopatz/nitarray/nitarray/nitarray.pyc in append(self, x)
+        382         """Appends the nit x to the end of the array."""
+        383         x = int(x)
+    --> 384         assert (x in self._allowed_nits)
+        385         x_array = encodings_cache[self._n][x]
+        386         self._bitarray += x_array
+
+    AssertionError: 
+
+As with other sequence types in Python, :class:`nitarrays <nitarray.nitarray>` can 
+be indexed into and sliced.  Assigment can also take place from indexes and slices.  
+
+.. warning:: 
+
+    Striding is not currently supported because the underlying implementation is tricky.
+    Currently, for speed, we pass slices down to bitarrays.  Striding would require
+    reading out discrete chucks of bitarrays, which is not supported by the Python 
+    syntax.  Since we cannot pass strides down to bitarray, this would have to be done
+    at a higher level.
+             
+.. code-block:: ipython
+
+    In [1]: from nitarray import nitarray
+
+    In [2]: n = nitarray(10, 3)
+
+    In [3]: n
+    Out[3]: nitarray('0,0,0,0,0,0,0,0,0,0', 3)
+
+    In [4]: n.setall(1)
+
+    In [5]: n
+    Out[5]: nitarray('1,1,1,1,1,1,1,1,1,1', 3)
+
+    In [6]: n[3:8] = 5 * nitarray([2], 3)
+
+    In [7]: n
+    Out[7]: nitarray('1,1,1,2,2,2,2,2,1,1', 3)
+
 
 .. _trits: http://en.wikipedia.org/wiki/Trit
 
