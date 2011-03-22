@@ -9,3 +9,5 @@ You may contact the author by email via one of the following addresses:
 * ascopatz_AT_enthought.com
 
 Or via twitter, convore, or github via ``@scopatz``.
+
+If you would like to contribute, please let me know!
