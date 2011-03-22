@@ -25,6 +25,64 @@ It returns a list of nits that are the base-n digits of x.
    In [2]: nit(10, 3)
    Out[2]: [1, 0, 1]
 
+   In [3]: nit(1794864036260549376542, 42)
+   Out[3]: [1L, 17L, 24L, 0L, 20L, 37L, 22L, 15L, 16L, 20L, 26L, 19L, 34L, 14L]
+
+   In [4]: nit(16, 2)
+   Out[4]: [1, 0, 0, 0, 0]
+
+   In [5]: nit(101, 256)
+   Out[5]: [101]
+
+As you can see, because of python's native long support you can go a bit crazy with the
+nits that you represent.  
+
+You can read the above nits the same way you read base-10 numbers.  The last element is the 
+n^0 place, the second to last element is the n^1 place, and so until you get the front of 
+the list which is the n^(length - 1) place.
+
+Reversing the 10-base-3 example above, we see that the last element is 1 so we start a running
+tally with 1 as the initial value.  The second to last element is 0, so we don't add anything to 
+our tally.  The third-to-last, or the first, element is 1 so we add 1 * 3^2 = 9 to the tally.
+Now our tally is 10, which was our original integer.
+
+The rest are left as an exercise for the reader.
+
+
+---------------
+Why a nitarray?
+---------------
+From the previous section, you can see that nits are just sequences of integers that are 
+less than base-n that represent some *other* interger!  This process is analogous to how
+32-bits are often used to represent a base-10 integer.
+
+However in the above, every digit in the nit-list is itself a 32 bit (or longer) integer 
+in memory.  This is a huge waste of resources for a data type that can be represneted
+by fundementally smaller units.  (For example, it only takes 2 bits to represent base-3 or
+base-4 digits, not 32.  It takes 3 bits to represent base-5 through base-8 digits.)
+
+**Enter: nitarray.**  The nitarray class stores nits in the smallest number of bits possible.
+Thus space and time are saved on common opperations on nitarrays over using standard python 
+lists of 32-bit integers or longs.  As such, a nitarray is just a special way of encoding 
+bits (using the `bitarray`_ package).  You can generate mappings from normal python 
+intergers to their binary represnetation using the :func:`nit_endocding() <nitarray.nit_encoding>`  
+function.  For example, 
+
+.. code-block:: ipython
+
+    In [1]: from nitarray import nit_encoding
+
+    In [2]: nit_encoding(6)
+    Out[2]: 
+    {0: bitarray('000'),
+     1: bitarray('001'),
+     2: bitarray('010'),
+     3: bitarray('011'),
+     4: bitarray('100'),
+     5: bitarray('101')}
+
 
 
 .. _trits: http://en.wikipedia.org/wiki/Trit
+
+.. _bitarray: http://pypi.python.org/pypi/bitarray
