@@ -1,0 +1,300 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API Reference &mdash; nitarray v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/nitarray_logo.ico"/>
+    <link rel="top" title="nitarray v0.1 documentation" href="index.html" />
+    <link rel="next" title="Contact Info" href="contact.html" />
+    <link rel="prev" title="Tutorial" href="tutorial.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="contact.html" title="Contact Info"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">nitarray v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-functions">
+<h2>Module Functions<a class="headerlink" href="#module-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="nitarray.nit">
+<tt class="descclassname">nitarray.</tt><tt class="descname">nit</tt><big>(</big><em>x</em>, <em>n</em><big>)</big><a class="headerlink" href="#nitarray.nit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts an int x to a sequence of nits of base n.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nitarray.nit_encoding">
+<tt class="descclassname">nitarray.</tt><tt class="descname">nit_encoding</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#nitarray.nit_encoding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a bit encoding dictionary for nits of base n.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nitarray.char_encoding">
+<tt class="descclassname">nitarray.</tt><tt class="descname">char_encoding</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#nitarray.char_encoding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a char encoding dictionary to nits of base n.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="the-nitarray-class">
+<h2>The nitarray Class<a class="headerlink" href="#the-nitarray-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nitarray.nitarray">
+<em class="property">class </em><tt class="descclassname">nitarray.</tt><tt class="descname">nitarray</tt><big>(</big><em>initial</em>, <em>n=2</em><big>)</big><a class="headerlink" href="#nitarray.nitarray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an array of nits.  A nit is a generalized bit.  Rather than being
+base 2, they instead have base n.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last">
+<li><p class="first">initial: Initial value of the nitarray. Behavior determined by type:</p>
+<blockquote>
+<div><ul class="simple">
+<li>iterable of ints: nit values in sequence.</li>
+<li>string: nit values reprensted as a string.
+Here nits must be separated by commas.</li>
+<li>int or long: creates a zero array of the length given.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">n (int): nit base.</p>
+</li>
+</ul>
+</dd>
+</dl>
+<p>All nits must be on the range [0, n-1].</p>
+<dl class="method">
+<dt id="nitarray.nitarray.append">
+<tt class="descname">append</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#nitarray.nitarray.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends the nit x to the end of the array.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.count">
+<tt class="descname">count</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#nitarray.nitarray.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts the number of times the nit x appears in the array.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.decode">
+<tt class="descname">decode</tt><big>(</big><em>code</em><big>)</big><a class="headerlink" href="#nitarray.nitarray.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates the nitarray into a list of keys of code.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li>code: a dict of keys (any hashable object) to a nitarray.
+These nitarrays must have the same base as the nitarray
+to be extended.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>decoded: a list of code keys, in the order they appear
+in the nitarray.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.encode">
+<tt class="descname">encode</tt><big>(</big><em>code</em>, <em>seq</em><big>)</big><a class="headerlink" href="#nitarray.nitarray.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends the nitarray with [code[s] for all s in seq].</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li>code: a dict of keys (any hashable object) to a nitarray.
+These nitarrays must have the same base as the nitarray
+to be extended.</li>
+<li>seq: a sequence of keys present in code.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.extend">
+<tt class="descname">extend</tt><big>(</big><em>seq</em><big>)</big><a class="headerlink" href="#nitarray.nitarray.extend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends a sequence of nits to the nitarray.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.fromfile">
+<tt class="descname">fromfile</tt><big>(</big><em>f</em><big>)</big><a class="headerlink" href="#nitarray.nitarray.fromfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends the nitarray with values from a file f.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.fromstring">
+<tt class="descname">fromstring</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#nitarray.nitarray.fromstring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extend the nitarray from a string interpreting the characters 
+as nitarrays themselves.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.index">
+<tt class="descname">index</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#nitarray.nitarray.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the index of the first occurence of x.  
+Raises an error if x does not occur in the nitarray.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.insert">
+<tt class="descname">insert</tt><big>(</big><em>i</em>, <em>x</em><big>)</big><a class="headerlink" href="#nitarray.nitarray.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts the nit x before position i in the array.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.pop">
+<tt class="descname">pop</tt><big>(</big><em>i=-1</em><big>)</big><a class="headerlink" href="#nitarray.nitarray.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a nit from position i of the array and returns its value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.remove">
+<tt class="descname">remove</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#nitarray.nitarray.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the first occurence of the nit x in the array.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.setall">
+<tt class="descname">setall</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#nitarray.nitarray.setall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets all nits in the array to x.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.sort">
+<tt class="descname">sort</tt><big>(</big><em>reverse=False</em><big>)</big><a class="headerlink" href="#nitarray.nitarray.sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sorts the nitarray in-place.  The reverse keyword reverses this sort.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.to01">
+<tt class="descname">to01</tt><big>(</big><big>)</big><a class="headerlink" href="#nitarray.nitarray.to01" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the nitarray to as a comma-separated string of ints cooresponding to the nits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.tofile">
+<tt class="descname">tofile</tt><big>(</big><em>f</em><big>)</big><a class="headerlink" href="#nitarray.nitarray.tofile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the nitarray to a file f, interpreting the nits as characters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.tolist">
+<tt class="descname">tolist</tt><big>(</big><big>)</big><a class="headerlink" href="#nitarray.nitarray.tolist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the nitarray to as a list of ints cooresponding to the nits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nitarray.nitarray.tostring">
+<tt class="descname">tostring</tt><big>(</big><big>)</big><a class="headerlink" href="#nitarray.nitarray.tostring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the nitarray to as a string, interpreting the nits as characters.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/nitarray_logo_200x150.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API Reference</a><ul>
+<li><a class="reference internal" href="#module-functions">Module Functions</a></li>
+<li><a class="reference internal" href="#the-nitarray-class">The nitarray Class</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorial.html"
+                        title="previous chapter">Tutorial</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="contact.html"
+                        title="next chapter">Contact Info</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/api.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="contact.html" title="Contact Info"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial"
+             >previous</a> |</li>
+        <li><a href="index.html">nitarray v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Anthony Scopatz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
