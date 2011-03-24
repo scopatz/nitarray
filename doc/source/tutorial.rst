@@ -81,6 +81,8 @@ function.  For example,
      4: bitarray('100'),
      5: bitarray('101')}
 
+Currently, all nits are big-endian.  It would not be particularly dificult to add an endianness 
+flag to the object.  However, time being what it is...
 
 ---------------
 Using nitarrays
@@ -132,13 +134,15 @@ methods that you may apply.
     In [12]: n.to01()
     Out[12]: '1,2,2,0,2'
 
+    In [13]: int(n)
+    Out[13]: 155
 
 Trying to append a nit that is greater than or equal to the base value is clearly not
 allowed.
 
 .. code-block:: ipython
 
-    In [13]: n.append(42)
+    In [14]: n.append(42)
     ---------------------------------------------------------------------------
     AssertionError                            Traceback (most recent call last)
 

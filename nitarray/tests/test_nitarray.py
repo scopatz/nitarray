@@ -271,6 +271,14 @@ def test_imul():
     assert_equal(y._bitarray, ba.bitarray('01010101'))
 
 
+def test_int():
+    assert_equal(3, int(nitarray('1,0', 3)))
+
+    assert_equal(51, int(nitarray('0,0,2,0,1', 5)))
+
+    assert_equal(0, int(nitarray([], 10)))
+
+
 def test_iter():
     x = nitarray('0,2,1,1,0,2', 3)
 

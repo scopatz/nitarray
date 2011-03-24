@@ -311,6 +311,18 @@ class nitarray(object):
         return self
 
 
+    def __int__(self):
+        i = 0
+        e = 1
+        l = self.tolist()
+
+        while l != []:
+            i += e * l.pop()
+            e *= self._n
+
+        return i
+
+
     def __iter__(self):
         for i in range(len(self)):
             yield self[i]
