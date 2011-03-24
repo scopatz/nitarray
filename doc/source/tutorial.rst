@@ -153,6 +153,10 @@ allowed.
 
     AssertionError: 
 
+
+------------------
+Indexing nitarrays
+------------------
 As with other sequence types in Python, :class:`nitarrays <nitarray.nitarray>` can 
 be indexed into and sliced.  Assigment can also take place from indexes and slices.  
 
@@ -244,6 +248,22 @@ Other standard Python sequence interfaces are also available.
 
     In [29]: n
     Out[29]: nitarray('0,0,0,1,1,1,2,2,2,2,2,2', 3)
+
+Lastly, you can iterate over a nitarray, returning the individual nits in their own arrays.
+
+.. code-block:: ipython
+
+    In [1]: from nitarray import nitarray
+
+    In [2]: for n in nitarray('1,2,5,3,3', 6):
+       ...:     print n
+       ...:     
+       ...:     
+    nitarray('1', 6)
+    nitarray('2', 6)
+    nitarray('5', 6)
+    nitarray('3', 6)
+    nitarray('3', 6)
 
 
 ------------------------------
