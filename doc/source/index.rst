@@ -14,7 +14,7 @@ Nitarray has only one dependency, bitarray:
    #. `bitarray <http://pypi.python.org/pypi/bitarray>`_
 
 The source code for nitarray may be found at the
-`GitHub project site <http://github.com/scopatz/char>`_.
+`GitHub project site <http://github.com/scopatz/nitarray>`_.
 Or you may simply clone from the master using git::
 
     git clone git://github.com/scopatz/nitarray.git
